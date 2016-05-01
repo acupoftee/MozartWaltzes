@@ -125,8 +125,7 @@ public final class MozartWaltzesTest {
 	public void testThrowDieForZeroAndBelow() throws NoSuchMethodException, SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException {
 		@SuppressWarnings("rawtypes")
-		Class[] args = new Class[1];
-		args[0] = Integer.TYPE;
+		Class[] args = {Integer.TYPE};
 		Method method = MozartWaltzes.class.getDeclaredMethod("throwDice", args);
 		method.setAccessible(true);
 		int numberOfDice = 0;
