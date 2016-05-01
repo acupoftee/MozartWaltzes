@@ -1,0 +1,17 @@
+org.jfugue.devices
+org.jfugue.devtools
+org.jfugue.integration
+org.jfugue.midi
+org.jfugue.parser
+org.jfugue.pattern
+org.jfugue.player
+org.jfugue.provider
+org.jfugue.realtime
+org.jfugue.rhythm
+org.jfugue.temporal
+org.jfugue.theory
+org.jfugue.tools
+org.staccato
+org.staccato.functions
+org.staccato.maps
+org.staccato.tools
