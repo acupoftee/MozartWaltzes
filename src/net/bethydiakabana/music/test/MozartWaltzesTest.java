@@ -84,8 +84,7 @@ public final class MozartWaltzesTest {
 	public void testThrowDieForTrio() throws IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException, SecurityException {
 		@SuppressWarnings("rawtypes")
-		Class[] args = new Class[1];
-		args[0] = Integer.TYPE;
+		Class[] args = {Integer.TYPE};
 		Method method = MozartWaltzes.class.getDeclaredMethod("throwDice", args);
 		method.setAccessible(true);
 		int smallestDieNumber = 1;
