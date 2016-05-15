@@ -79,7 +79,7 @@ public class MozartWaltzes {
 				clip.start();
 				long sleeptime = (clip.getMicrosecondLength() / 1000) - 50; 
 				Thread.sleep(sleeptime);
-			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException | InterruptedException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				break;
 			} // end try-catch
