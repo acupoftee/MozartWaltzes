@@ -79,7 +79,7 @@ public class MozartWaltzes {
 				clip.start();
 				long sleeptime = (clip.getMicrosecondLength() / 1000) - 50; 
 				Thread.sleep(sleeptime);
-			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException | InterruptedException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				break;
 			} // end try-catch
@@ -87,6 +87,46 @@ public class MozartWaltzes {
 		} // end for
 		return played;
 	} // end method composeWaltz
+
+	public boolean saveWaltz(List<File> wavFiles, String fileDestination) throws IOException {
+		AudioInputStream audioInputStream = null;
+		List<AudioInputStream> audioInputStreamList = null;
+		AudioFormat audioFormat = null;
+		long frameLength = 0;
+		long excessFrames = 60000;
+		boolean isWritten = false;
+
+		try {
+			for (File file : wavFiles) {
+				audioInputStream = AudioSystem.getAudioInputStream(file);
+
+				if (audioFormat == null)
+					audioFormat = audioInputStream.getFormat();
+				if (audioInputStreamList == null)
+					audioInputStreamList = new ArrayList<AudioInputStream>();
+				audioInputStreamList.add(audioInputStream);
+
+				if (frameLength == 0)
+					frameLength = (audioInputStream.getFrameLength() - excessFrames);
+				else {
+					frameLength += (audioInputStream.getFrameLength() - excessFrames);
+				}
+				frameLength += excessFrames;
+			} // end for
+			AudioSystem
+					.write(new AudioInputStream(new SequenceInputStream(Collections.enumeration(audioInputStreamList)),
+							audioFormat, frameLength), Type.WAVE, new File(fileDestination));
+			isWritten = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (audioInputStream != null)
+				audioInputStream.close();
+			if (audioInputStreamList != null)
+				audioInputStream = null;
+		} // end try-catch
+		return isWritten;
+	} // end method saveWaltz
 	
 	private List<String> selectMeasures() {
 		List<String> waltzMeasures = new ArrayList<String>();
