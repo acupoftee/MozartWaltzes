@@ -188,4 +188,22 @@ public final class MozartWaltzesTest {
 	public void testComposeWalts() {
 		assertTrue(new MozartWaltzes().composeWaltz());
 	} // end method testComposeWaltz
+
+		@Test
+	public void testSaveWaltz() throws NoSuchMethodException, SecurityException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException, IOException {
+		Method method = MozartWaltzes.class.getDeclaredMethod("selectMeasures");
+		method.setAccessible(true);
+		@SuppressWarnings("unchecked")
+		List<String> waltzMeasures = (List<String>) method.invoke(new MozartWaltzes(), new Object[0]);
+		List<File> audioFiles = new ArrayList<File>();
+		for (String measure: waltzMeasures)
+			audioFiles.add(new File("src/resources/" + measure + ".wav"));
+
+		Date creationDate = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("_yyyy_MM_dd_H_mm_ss");
+		String fileName = "Waltz" + formatter.format(creationDate) + ".wav";
+		assertTrue(new MozartWaltzes().saveWaltz(audioFiles, fileName));
+
+	}
 }
